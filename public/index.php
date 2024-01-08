@@ -1,5 +1,3 @@
-<?php  
-    ob_start();
-    session_start();
-    require_once '../app/bootstrap.php'
+<?php 
+    require_once '../app/bootstrap.php';
 ?>
