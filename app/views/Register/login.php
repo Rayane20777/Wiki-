@@ -14,18 +14,6 @@
 
   <form action="#" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
     <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-      <div>
-        <label for="full_name" class="block text-sm font-semibold leading-6 text-black">Full Name</label>
-        <div class="mt-2.5">
-          <input type="text" name="first-full_name	" id="full_name	-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm shadow-blue-500 ring-1 ring-inset ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6">
-        </div>
-      </div>
-      <div>
-        <label for="username" class="block text-sm font-semibold leading-6 text-black">Username</label>
-        <div class="mt-2.5">
-          <input type="text" name="username" id="username" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset shadow-blue-500 ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6">
-        </div>
-      </div>
       <div class="sm:col-span-2">
         <label for="email" class="block text-sm font-semibold leading-6 text-black">Email</label>
         <div class="mt-2.5">
