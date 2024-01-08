@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 require_once 'config/config.php';
 
@@ -9,6 +9,7 @@ function Autoloader($class) {
         APPROOT."/models/"
     ];
 
+
     foreach ($paths as $path) {
         $file = $path . $class . '.php';
         if (file_exists($file)) {
@@ -17,7 +18,9 @@ function Autoloader($class) {
     }
 }
 
+
 spl_autoload_register('Autoloader');
+
 
 $init = new Core();
 

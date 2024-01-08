@@ -1,16 +1,11 @@
-<?php 
-//DB params
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
+<?php
 
-define('DB_PASS', '');
-define('DB_NAME', 'wiki');
-
-//APP root
-define('APPROOT', dirname(dirname(__FILE__)));
-//URL root
-define('URLROOT', 'http://localhost/Wiki/');
-//Site name
-define('SITENAME', 'Wiki');
-
+define('DB_HOST' , 'localhost');
+define('DB_USER' , 'root');
+define('DB_PASS' , '');
+define('DB_NAME' , 'wiki');
+define('APPROOT' , dirname(dirname(__FILE__)));
+define('URLROOT' ,'http://localhost/Wiki'); 
+define("PUBLICROOT",$_SERVER["DOCUMENT_ROOT"]."/Wiki/public");
+define('SITENAME' ,'WIKI');
 ?>
