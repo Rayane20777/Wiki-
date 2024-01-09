@@ -15,7 +15,7 @@ class Register extends Controller
         if($_SERVER['REQUEST_METHOD'] === "POST") {
 
             $data = [
-                'id_user' => uniqid(),
+                'id_user' => uniqid(mt_rand(), true),
                 'full_name' => $_POST['full_name'],
                 'username' =>  ucfirst($_POST['username']),
                 'email' => uniqid($_POST['email']),
@@ -43,10 +43,37 @@ class Register extends Controller
 
 
 
+public function loginP() {
+    $this->view('Register/login');
+}
+        public function login(){
 
-    public function login(){
-        $this->view('Register/login');
+            $data =[
+                "error" =>"",
+                "emailError" =>"",
+                "pwError" =>""
+            ];
+    
+            if (isset($_POST["submit"])){
+                $email = $_POST["email"];
+                $password = $_POST["password"];
+    
+                if(empty($email) || empty($password)){
+                    $data["error"] = "Please fill all the fields";
+    
+            }
+            else{
+                if(strlen($email) < 8){
+                    $data["usernameError"] = "please enter a valid email";
+            }elseif(!validPassword($password)){
+                $data["passwordError"] = "Please enter a valid password";
+            }else{
+                
+            }
+        }
+    }
+    }
     }
 
-}
+
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-class UserService {
+class UserService implements UserIservice {
 
     private $db;
 
@@ -11,7 +11,7 @@ class UserService {
 
         public function register(User $user) {
 
-            $sql = "INSERT INTO User VALUES(:id_user , :full_name , :username , :email , :password, 'Admin')";
+            $sql = "INSERT INTO User VALUES(:id_user , :full_name , :username , :email , :password, 'author')";
 
             try {
                 $this->db->query($sql);
