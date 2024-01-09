@@ -3,5 +3,6 @@
 
 interface LoginIservice{
     public function login($email, $password);
-    public function checkRole($role_name)
+    public function checkRole($role_name);
+
 }
