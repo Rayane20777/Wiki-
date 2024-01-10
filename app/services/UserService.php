@@ -7,7 +7,6 @@ class UserService implements UserIservice {
     public function __construct() {
         $this->db = Database::getInstance();
     }
-        // Add new Product =================
 
         public function register(User $user) {
 
