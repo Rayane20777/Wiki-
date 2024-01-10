@@ -1,36 +1,65 @@
 <?php 
-class Categories extends Controller{
+class Categories extends Controller {
 
     
-    private $model;
-    private $service;
+   private $service;
     public function __construct(){
-        $this->model = $this->model("Category");
         $this->service = $this->service("CategoryService");
     }
 
-public function category(){
-    $this->view('Admin/category');
 
-
-}
 
 public function insert(){
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
-        $data =[
-            "id_category" => uniqid(),
-            "name" => $_POST["name"]
-        ];
+        $newCategory = $this->model("Category");
 
-        $this->model->setId_category($data["id_category"]);
-        $this->model->setName($data["name"]);
-        $this->service->insert($this->model);
-        $this->view('Admin/category');
-
-        
+        $newCategory->setId_category(uniqid(mt_rand(), true));
+        $newCategory->setName($_POST['name']);
+        $this->service->insert($newCategory);
+        header("Location: http://localhost/Wiki/Categories/display");
 
     }
 }
+
+public function edit(){
+    if ($_SERVER['REQUEST_METHOD'] == "POST"){
+
+        $newCategory = $this->model("Category");
+
+        $newCategory->setId_category($_POST['id']);
+        $newCategory->setName($_POST['name']);
+        $this->service->edit($newCategory);
+        header("Location: http://localhost/Wiki/Categories/display");
+
+    }
+}
+
+public function display() {
+
+        $data = $this->service->getAllCategories();
+        $this->view('Admin/category', $data);
+
+    }
+
+public function get($id) {
+
+    $category = $this->service->fetch($id);
+    $data = [
+        'category' => $category,
+        'edit' => 1
+    ];
+    $this->view('Admin/category', $data);
+
+}
+
+
+public function delete($id) {
+
+    $data = $this->service->delete($id);
+    header("Location: http://localhost/Wiki/Categories/display");
+
+}
+
 }
 ?>

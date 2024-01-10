@@ -3,8 +3,7 @@
 class UserService implements UserServiceInterface {
 
     private $db;
-    private $Author = "author";
-
+    private $author = "author";
 
     public function __construct(){
         $this->db = Database::getInstance();
@@ -25,7 +24,7 @@ class UserService implements UserServiceInterface {
         $this->db->bind(":username", $username);
         $this->db->bind(":email", $email);
         $this->db->bind(":password", $password);
-        $this->db->bind(":name_role", $this->Author);
+        $this->db->bind(":name_role", $this->author);
         $this->db->execute();
 
     }

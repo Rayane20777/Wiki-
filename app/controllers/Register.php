@@ -1,10 +1,9 @@
 <?php
 class Register extends Controller
 {
-    private $model;
     private $service;
+
     public function __construct(){
-        $this->model = $this->model("User");
         $this->service = $this->service("UserService");
     }
 
@@ -14,31 +13,20 @@ class Register extends Controller
 
     public function insert() {
         if($_SERVER['REQUEST_METHOD'] === "POST") {
-
-            $data = [
-                'id_user' => uniqid(mt_rand(), true),
-                'full_name' => $_POST['full_name'],
-                'username' =>  ucfirst($_POST['username']),
-                'email' => $_POST['email'],
-                'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
-                'name_role' => "author"
-            ];
-
-            $this->model->setId_user($data["id_user"]);
-            $this->model->setFull_name($data["full_name"]);
-            $this->model->setUsername($data["username"]);
-            $this->model->setEmail($data["email"]);
-            $this->model->setPassword($data["password"]);
-            $this->model->setRole($data["name_role"]);
-            $this->service->insert($this->model);
+            $newUser = $this->model("User");
+            $newUser->setId_user(uniqid(mt_rand(), true));
+            $newUser->setFull_name($_POST['full_name']);
+            $newUser->setUsername(ucfirst($_POST['username']));
+            $newUser->setEmail($_POST['email']);
+            $newUser->setPassword(password_hash($_POST['password'], PASSWORD_BCRYPT));
+            $newUser->setRole("author");
+            $this->service->insert($newUser);
             $this->view('Register/register');
-
-
- 
-
         }
 
     }
+
+
 
 
 

@@ -19,6 +19,6 @@ function Autoloader($class) {
 
 spl_autoload_register('Autoloader');
 
-$init = new Core();
+new Core();
 
 ?>

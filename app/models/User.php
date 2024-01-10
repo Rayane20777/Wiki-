@@ -9,11 +9,6 @@ class User
 	protected $password;
 	protected $role;
 
-	public function __construct()
-	{
-
-	}
-
 	public function getId_user()
 	{
 		return $this->id_user;

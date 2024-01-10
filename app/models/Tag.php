@@ -1,21 +1,21 @@
 <?php
 
-class Category
+class Tag
 {
 
-    private $id_category;
+    private $id_tag;
     private $name;
 
     public function __construct()
     {
     }
 
-    public function getId_category(){
-		return $this->id_category;
+    public function getId_tag(){
+		return $this->id_tag;
 	}
 
-	public function setId_category($id_category){
-		$this->id_category = $id_category;
+	public function setId_tag($id_tag){
+		$this->id_tag = $id_tag;
 	}
 
 	public function getName(){
@@ -25,7 +25,5 @@ class Category
 	public function setName($name){
 		$this->name = $name;
 	}
-
-
 }
 ?>
