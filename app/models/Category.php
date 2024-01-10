@@ -6,19 +6,24 @@ class Category
     private $id_category;
     private $name;
 
-    public function __set($property, $value)
+    public function __construct()
     {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
-        }
-
     }
 
-    public function __get($property)
-    {
-        if (property_exists($this, $property)) {
-            return $this->$property;
-        }
-    }
+    public function getId_category(){
+		return $this->id_category;
+	}
+
+	public function setId_category($id_category){
+		$this->id_category = $id_category;
+	}
+
+	public function getName(){
+		return $this->name;
+	}
+
+	public function setName($name){
+		$this->name = $name;
+	}
 }
 ?>

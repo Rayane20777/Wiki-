@@ -17,7 +17,7 @@
 	
 	<div id="overlayCategory" class="fixed hidden  inset-0 top-0 left-0 bg-black w-full h-full bg-opacity-30 backdrop-blur-sm  z-50 flex items-center justify-center">
 
-            <form action="http://localhost/Wiki/Category/addCategory" method="POST" id="formCategory" class="w-[550px] bg-white p-5 rounded-lg relative">
+            <form action="http://localhost/Wiki/Categories/insert" method="POST" id="formCategory" class="w-[550px] bg-white p-5 rounded-lg relative">
                 <div>
                     <h2 class="text-center text-xl font-semibold bg-green-500 py-3 text-white mt-5 rounded-md text-white" id="nameFrom"></h2>
                 </div>
