@@ -1,4 +1,10 @@
+// Import Function
+import {inputEmpty , displayMessage} from "./config.js";
 
+const openBtn = document.getElementById('btnAdd');
+const closeBtn = document.getElementById('btnClose');
+const overlayCategory = document.getElementById('overlayCategory');
+const titleFrom = document.getElementById('nameFrom');
 
 // Display Form Category
 openBtn.addEventListener('click' , () =>{
