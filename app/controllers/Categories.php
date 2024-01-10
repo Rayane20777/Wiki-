@@ -17,6 +17,7 @@ public function category(){
 
 public function insert(){
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
+
         $data =[
             "id_category" => uniqid(),
             "name" => $_POST["name"]

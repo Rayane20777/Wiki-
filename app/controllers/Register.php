@@ -1,17 +1,18 @@
 <?php
 class Register extends Controller
 {
-    private $userService;
+    private $model;
+    private $service;
     public function __construct(){
-        $this->userService = $this->service("UserService");
+        $this->model = $this->model("User");
+        $this->service = $this->service("UserService");
     }
 
     public function register(){
         $this->view('Register/register');
     }
 
-    public function addUser() {
-
+    public function insert() {
         if($_SERVER['REQUEST_METHOD'] === "POST") {
 
             $data = [
@@ -20,17 +21,18 @@ class Register extends Controller
                 'username' =>  ucfirst($_POST['username']),
                 'email' => $_POST['email'],
                 'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
+                'name_role' => "author"
             ];
 
-            $newUser = new User();
+            $this->model->setId_user($data["id_user"]);
+            $this->model->setFull_name($data["full_name"]);
+            $this->model->setUsername($data["username"]);
+            $this->model->setEmail($data["email"]);
+            $this->model->setPassword($data["password"]);
+            $this->model->setRole($data["name_role"]);
+            $this->service->insert($this->model);
+            $this->view('Register/register');
 
-            $newUser->id_user = $data['id_user'];
-            $newUser->full_name = $data['full_name'];
-            $newUser->username = $data['username'];
-            $newUser->email = $data['email'];
-            $newUser->password = $data['password'];
-
-            $this->userService->register($newUser);
 
  
 
