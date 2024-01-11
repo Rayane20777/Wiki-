@@ -21,6 +21,56 @@ class TagService implements TagServiceInterface {
 
     }
 
+    public function getAllTags() {
+
+        $sql = "SELECT * FROM tag";
+        try {
+            $this->db->query($sql);
+            $tags = $this->db->resultSet();
+            return $tags;
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+
+    }
+    public function delete($id) {
+
+        $sql = "DELETE FROM tag WHERE id_tag = :id_tag";
+        try {
+            $this->db->query($sql);
+            $this->db->bind("id_tag", $id);
+            $this->db->execute();
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+
+    }
+    public function edit(Tag $tag){
+
+        $id_tag = $tag->getId_tag();
+        $name = $tag->getName();
+
+        $sql = "UPDATE tag SET name = :name WHERE id_tag = :id_tag";
+        $this->db->query($sql);
+        $this->db->bind(":id_tag", $id_tag);
+        $this->db->bind(":name", $name);
+        $this->db->execute();
+
+    }
+
+    public function fetch($id) {
+
+        $sql = "SELECT * FROM tag WHERE id_tag = :id";
+        try {
+            $this->db->query($sql);
+            $this->db->bind(':id', $id);
+            $tags = $this->db->single();
+            return $tags;
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+
+    }
 
     
 }

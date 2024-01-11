@@ -18,7 +18,7 @@ class Register extends Controller
             $newUser->setFull_name($_POST['full_name']);
             $newUser->setUsername(ucfirst($_POST['username']));
             $newUser->setEmail($_POST['email']);
-            $newUser->setPassword(password_hash($_POST['password'], PASSWORD_BCRYPT));
+            $newUser->setPassword(password_hash($_POST['password'], PASSWORD_DEFAULT));
             $newUser->setRole("author");
             $this->service->insert($newUser);
             $this->view('Register/register');
@@ -30,7 +30,19 @@ class Register extends Controller
 
 
 
+public function login(){
+ if($_SERVER['REQUEST_METHOD']== 'POST'){
+    $logUser = $this->model("User");
+    $logUser->setEmail($_POST['email']);
+    $logUser->setPassword($_POST['password']);
+    $this->service->fetchByEmail($logUser);
 
+ }else{
+    $this->view('Register/login');
+
+ }
+    
+}
 
 
 // public function loginP() {

@@ -17,15 +17,59 @@ class UserService implements UserServiceInterface {
         $email = $user->getEmail();
         $password = $user->getPassword();
 
-        $sql = "INSERT INTO user VALUES (:id_user, :full_name, :username, :email, :password, :name_role)";
+        $sql = "INSERT INTO user VALUES (:id_user, :full_name, :username, :email, :password, :role)";
         $this->db->query($sql);
         $this->db->bind(":id_user", $id_user);
         $this->db->bind(":full_name", $full_name);
         $this->db->bind(":username", $username);
         $this->db->bind(":email", $email);
         $this->db->bind(":password", $password);
-        $this->db->bind(":name_role", $this->author);
+        $this->db->bind(":role", $this->author);
         $this->db->execute();
 
     }
+
+
+    public function fetchByEmail(User $user){
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+    
+        $sql = 'SELECT * FROM user WHERE email = :email';
+        $this->db->query($sql);
+        $this->db->bind(':email', $email);
+        $this->db->execute();
+    
+        if ($this->db->rowCount() > 0) {
+            $userInfo = $this->db->single();
+        
+            if (password_verify($password, $userInfo->password)) {
+                if ($userInfo->role == 'author') {
+                    header('Location: http://localhost/Wiki/Tags/display');
+                    exit(); // Add exit after header to ensure no further code execution
+                } else {
+                    header('Location: http://localhost/Wiki/Wikis/display');
+                    exit(); // Add exit after header to ensure no further code execution
+                }
+            } else {
+                echo 'Password incorrect<br>';
+                echo 'Password from form: ' . $password . '<br>';
+                echo 'Hashed password from database: ' . $userInfo->password . '<br>';
+            }
+        } else {
+            header("Location: " . URLROOT . "/Register/login");
+            exit(); // Add exit after header to ensure no further code execution
+        }
+    }
+    
+
+    public function fetch($idUser){
+
+
+        $sql = "SELECT * FROM user WHERE id_user = :idUser";
+        $this->db->query($sql);
+        $this->db->bind(":idUser", $idUser);
+        $this->db->execute();
+
+    }
+
 }
