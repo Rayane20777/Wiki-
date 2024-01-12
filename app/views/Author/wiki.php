@@ -51,9 +51,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
                 <div class="py-3">
                     <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
-                    <input type="text" id="name"
-                        class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                        placeholder="Enter Category name" name="category_id">
+                    <select name="id_category" class="w-full" >
+                        <option value="" disabled selected>Select a category</option>
+                        <?php foreach($data['categories'] as $category): ?>
+                            <option value="<?= $category->id_category ?>"> <?= $category->name ?> </option>
+                    </select>
+
+                    <?php endforeach; ?>            
                 </div>
 
                 <div class="py-3">
@@ -61,6 +65,20 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                         class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
                         placeholder="Enter Category name" name="id_user" value="<?php echo $_SESSION['id_user'] ?>">
                 </div>
+
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
+                    <select id="tags" name="tags[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" multiple>
+                        <?php foreach($data['tags'] as $tag): ?>
+                            <option value="<?= $tag->id_tag ?>"> <?= $tag->name ?> </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                        
+                    <span class="error-message text-xs text-red-500"></span>
+
+                </div>
+
 
                 <div class="flex gap-5 items-center justify-center">
                     <button id="addCategory" type="submit" class=" mt-5  items-center px-4 py-2 w-[200px]  text-center border
@@ -172,7 +190,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                         </tr>
                     </thead>
                     <tbody class="text-gray-700">
-                        <?php foreach ($data as $wikis): ?>
+                        <?php foreach ($data['wikis'] as $wikis): ?>
                             <tr class="border-[1px] border-black bg-gray-200">
                                 <td class="w-1/3 text-left py-3 px-4">
                                     <?= $wikis->id_wiki ?>
