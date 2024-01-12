@@ -51,13 +51,15 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
                 <div class="py-3">
                     <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
-                    <select name="id_category" class="w-full" >
+                    <select name="id_category" class="w-full">
                         <option value="" disabled selected>Select a category</option>
-                        <?php foreach($data['categories'] as $category): ?>
-                            <option value="<?= $category->id_category ?>"> <?= $category->name ?> </option>
-                    </select>
+                        <?php foreach ($data['categories'] as $category): ?>
+                            <option value="<?= $category->id_category ?>">
+                                <?= $category->name ?>
+                            </option>
+                        </select>
 
-                    <?php endforeach; ?>            
+                    <?php endforeach; ?>
                 </div>
 
                 <div class="py-3">
@@ -68,13 +70,17 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
                 <div class="col-span-6 sm:col-span-3">
                     <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
-                    <select id="tags" name="tags[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" multiple>
-                        <?php foreach($data['tags'] as $tag): ?>
-                            <option value="<?= $tag->id_tag ?>"> <?= $tag->name ?> </option>
+                    <select id="tags" name="tags[]"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        multiple>
+                        <?php foreach ($data['tags'] as $tag): ?>
+                            <option value="<?= $tag->id_tag ?>">
+                                <?= $tag->name ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
 
-                        
+
                     <span class="error-message text-xs text-red-500"></span>
 
                 </div>
@@ -85,11 +91,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                     border-transparent text-sm leading-6 font-medium rounded-md text-white bg-gray-900 focus:outline-none
                     transition duration-150 ease-in-out" style="display: block;">
                         Add Category
-                    </button>
-                    <button id="upCategory" class="mt-5 block items-center px-4 py-2 w-[200px] text-center border
-                    border-transparent text-sm leading-6 font-medium rounded-md text-white bg-gray-900 focus:outline-none
-                    transition duration-150 ease-in-out">
-                        Update Category
                     </button>
                 </div>
 
@@ -103,66 +104,77 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
         </div>
 
         <?php if (isset($data['edit'])) { ?>
-            <div id="overlayCategory"
-                class="fixed  inset-0 top-0 left-0 bg-black w-full h-full bg-opacity-30 backdrop-blur-sm  z-50 flex items-center justify-center">
+    <div id="overlayCategory"
+        class="fixed inset-0 top-0 left-0 bg-black w-full h-full bg-opacity-30 backdrop-blur-sm z-50 flex items-center justify-center">
 
-                <form action="<?= URLROOT . 'Wikis/edit' ?>" method="POST" id="formCategory"
-                    class="w-[550px] bg-white p-5 rounded-lg relative">
-                    <div>
-                        <h2 class="text-center text-xl font-semibold bg-gray-900 py-3 text-white mt-5 rounded-md text-white"
-                            id="nameFrom"></h2>
-                    </div>
-                    <input value="<?= $data['Wiki']->id_wiki ?>" type="hidden" id="id"
-                        class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                        placeholder="Enter Category name" name="id">
-
-                    <p class="mt-2 text-md opacity-0 font-medium text-red-600 bg-red-50 py-2 px-3 rounded-lg dark:text-red-500"
-                        id="fieldErr"></p>
-                    <div class="py-3">
-                        <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
-                        <input value="<?= $data['Wiki']->title ?>" type="text" id="name"
-                            class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                            placeholder="Enter Category name" name="title">
-                    </div>
-
-                    <div class="py-3">
-                        <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
-                        <input value="<?= $data['Wiki']->content ?>" type="text" id="name"
-                            class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                            placeholder="Enter Category name" name="content">
-                    </div>
-
-                    <div class="py-3">
-                        <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
-                        <input value="<?= $data['Wiki']->id_user ?>" type="text" id="name"
-                            class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                            placeholder="Enter Category name" name="id_user">
-                    </div>
-
-                    <div class="py-3">
-                        <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
-                        <input value="<?= $data['Wiki']->id_category ?>" type="text" id="name"
-                            class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                            placeholder="Enter Category name" name="id_category">
-                    </div>
-
-                    <div class="flex gap-5 items-center justify-center">
-                        <button id="addCategory" type="submit" class=" mt-5  items-center px-4 py-2 w-[200px]  text-center border
-                        border-transparent text-sm leading-6 font-medium rounded-md text-white bg-gray-900 focus:outline-none
-                        transition duration-150 ease-in-out" style="display: block;">
-                            Update Category
-                        </button>
-                    </div>
-
-                    <div class="absolute top-[10px] right-[20px] cursor-pointer" id="btnClose">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-5 h-5 text-secondary">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </div>
-                </form>
+        <form action="<?= URLROOT . 'Wikis/edit' ?>" method="POST" id="formCategory"
+            class="w-[550px] bg-white p-5 rounded-lg relative">
+            <div>
+                <h2 class="text-center text-xl font-semibold bg-gray-900 py-3 text-white mt-5 rounded-md text-white"
+                    id="nameFrom"></h2>
             </div>
-        <?php } ?>
+            <input value="<?= $data['Wiki']->id_wiki ?>" type="hidden" id="id"
+                class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
+                placeholder="Enter Category name" name="id">
+
+            <p class="mt-2 text-md opacity-0 font-medium text-red-600 bg-red-50 py-2 px-3 rounded-lg dark:text-red-500"
+                id="fieldErr"></p>
+            <div class="py-3">
+                <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
+                <input value="<?= $data['Wiki']->title ?>" type="text" id="name"
+                    class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
+                    placeholder="Enter Category name" name="title">
+            </div>
+
+            <div class="py-3">
+                <label for="error" class="block mb-2 text-md font-medium text-secondary">Content</label>
+                <input value="<?= $data['Wiki']->content ?>" type="text" id="content"
+                    class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
+                    placeholder="Enter content" name="content">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="tagsEdit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
+                <select id="tagsEdit" name="tags[]"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    multiple>
+                    <?php foreach ($data['tags'] as $tag): ?>
+                        <!-- Check if the tag is selected for the current wiki -->
+                        <?php $isSelected = in_array($tag->id_tag, array_column($data['selectedTags'], 'id_tag')); ?>
+                        <option value="<?= $tag->id_tag ?>" <?= $isSelected ? 'selected' : '' ?>>
+                            <?= $tag->name ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <span class="error-message text-xs text-red-500"></span>
+            </div>
+
+            <div class="py-3">
+                <label for="error" class="block mb-2 text-md font-medium text-secondary">Category ID</label>
+                <input value="<?= $data['Wiki']->id_category ?>" type="text" id="category_id"
+                    class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
+                    placeholder="Enter Category ID" name="id_category">
+            </div>
+
+            <div class="flex gap-5 items-center justify-center">
+                <button id="updateCategory" type="submit"
+                    class="mt-5 block items-center px-4 py-2 w-[200px] text-center border
+                            border-transparent text-sm leading-6 font-medium rounded-md text-white bg-gray-900
+                            focus:outline-none transition duration-150 ease-in-out">
+                    Update Category
+                </button>
+                <div class="absolute top-[10px] right-[20px] cursor-pointer" id="btnClose">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5 text-secondary">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </div>
+            </div>
+
+        </form>
+    </div>
+<?php } ?>
+
         <div class="flex-grow bg-white ">
             <div class=" w-[95%] mx-auto my-5 flex items-center justify-between p-3 bg-gray-800 text-white rounded-lg">
                 <h1 class="text-xl font-bold">CATEGORIES</h1>
