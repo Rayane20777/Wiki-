@@ -41,8 +41,38 @@ class Wikis extends Controller {
     }
     public function delete($id) {
 
-        $data = $this->service->delete($id);
-        header("Location: http://localhost/Wiki/Tags/display");
+        $data = $this->wikiService->delete($id);
+        header("Location: http://localhost/Wiki/Wikis/display");
+    
+    }
+
+
+
+    public function edit(){
+        if ($_SERVER['REQUEST_METHOD'] == "POST"){
+    
+            $newWiki = $this->model("Wiki");
+    
+            $newWiki->setId_wiki($_POST['id']);
+            $newWiki->setTitle($_POST['title']);
+            $newWiki->setContent($_POST['content']);
+            $newWiki->setId_user($_POST['id_user']);
+            $newWiki->setId_category($_POST['id_category']);
+            $this->wikiService->edit($newWiki);
+            header("Location: http://localhost/Wiki/Wikis/display");
+    
+        }
+    }
+
+
+    public function get($id) {
+
+        $wiki = $this->wikiService->fetch($id);
+        $data = [
+            'Wiki' => $wiki,
+            'edit' => 1
+        ];
+        $this->view('Author/wiki', $data);
     
     }
 
