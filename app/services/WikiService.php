@@ -62,15 +62,13 @@ class WikiService {
         $id_wiki = $wiki->getId_wiki();
         $title = $wiki->getTitle();
         $content = $wiki->getContent();
-        $id_user = $wiki->getId_user();
         $id_category = $wiki->getId_category();
 
-        $sql = "UPDATE wiki SET title = :title , content = :content , id_user = :id_user , id_category =:id_category WHERE id_wiki = :id_wiki";
+        $sql = "UPDATE wiki SET title = :title , content = :content , id_category =:id_category WHERE id_wiki = :id_wiki";
         $this->db->query($sql);
         $this->db->bind(":id_wiki", $id_wiki);
         $this->db->bind(":title", $title);
         $this->db->bind(":content", $content);
-        $this->db->bind(":id_user", $id_user);
         $this->db->bind(":id_category", $id_category);
         $this->db->execute();
 
@@ -91,10 +89,12 @@ class WikiService {
         }
 
     }
-   
+
 
     // Add other methods as needed, e.g., getWikiById, updateWiki, etc.
 }
+
+
 
 
 

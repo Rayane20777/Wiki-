@@ -1,7 +1,7 @@
 <?php
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
-  session_start();
+    session_start();
 }
 ?>
 <!DOCTYPE html>
@@ -53,14 +53,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                     <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
                     <input type="text" id="name"
                         class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                        placeholder="Enter Category name" name="id_category">
+                        placeholder="Enter Category name" name="category_id">
                 </div>
 
                 <div class="py-3">
-                    <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
                     <input type="hidden" id="name"
                         class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                        placeholder="Enter Category name" name="id_user"  value="<?php echo $_SESSION['id_user'] ?>" >
+                        placeholder="Enter Category name" name="id_user" value="<?php echo $_SESSION['id_user'] ?>">
                 </div>
 
                 <div class="flex gap-5 items-center justify-center">
@@ -138,11 +137,11 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                     </div>
 
                     <div class="absolute top-[10px] right-[20px] cursor-pointer" id="btnClose">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5 text-secondary">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5 text-secondary">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </div>
                 </form>
             </div>
         <?php } ?>

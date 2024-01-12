@@ -16,7 +16,20 @@ class Wikis extends Controller {
 
 
     public function addWiki()  {
+
+
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $categories = $this->wikiService->getAllCategories();
+
+            // Pass categories to the view
+            $data = [
+                'categories' => $categories,
+            ];
+            
+            $this->view('Author/wiki', $data);
+
+
             $newWiki = $this->model("Wiki");
             $newWiki->setId_wiki(uniqid(mt_rand(), true));
             $newWiki->setTitle($_POST['title']);
@@ -49,6 +62,10 @@ class Wikis extends Controller {
 
 
     public function edit(){
+
+
+
+
         if ($_SERVER['REQUEST_METHOD'] == "POST"){
     
             $newWiki = $this->model("Wiki");
