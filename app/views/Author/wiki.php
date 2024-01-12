@@ -19,7 +19,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 <body>
 
     <div class="flex h-screen bg-gray-900 ">
-        <?php require APPROOT . '/views/pages/sidebar.php' ?>
+        <?php require APPROOT . '/views/inc/sidebar.php' ?>
 
 
 
@@ -231,7 +231,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
             </div>
         </div>
     </div>
-    <?php require APPROOT . '/views/pages/scripts.php' ?>
+    <?php require APPROOT . '/views/inc/scripts.php' ?>
 
 </body>
 

@@ -12,7 +12,7 @@
 <body >
 
 	<div class="flex h-screen bg-gray-900 ">
-	<?php require APPROOT. '/views/pages/sidebar.php'?>
+	<?php require APPROOT. '/views/inc/sidebar.php'?>
 
 	
 	
@@ -116,7 +116,7 @@
                     </div>
                     </div>
                     </div>
-                    <?php require APPROOT. '/views/pages/scripts.php'?>
+                    <?php require APPROOT. '/views/inc/scripts.php'?>
 
                     </body>
 </html>  
