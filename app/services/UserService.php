@@ -44,7 +44,7 @@ class UserService implements UserServiceInterface {
         
             if (password_verify($password, $userInfo->password)) {
                 if ($userInfo->role == 'author') {
-                    header('Location: http://localhost/Wiki/Tags/display');
+                    header('Location: http://localhost/Wiki/Wikis/display');
                     exit(); // Add exit after header to ensure no further code execution
                 } else {
                     header('Location: http://localhost/Wiki/Wikis/display');
