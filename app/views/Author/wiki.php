@@ -1,3 +1,9 @@
+<?php
+
+if (session_status() !== PHP_SESSION_ACTIVE) {
+  session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,9 +58,9 @@
 
                 <div class="py-3">
                     <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
-                    <input type="text" id="name"
+                    <input type="hidden" id="name"
                         class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                        placeholder="Enter Category name" name="id_user">
+                        placeholder="Enter Category name" name="id_user"  value="<?php echo $_SESSION['id_user'] ?>" >
                 </div>
 
                 <div class="flex gap-5 items-center justify-center">

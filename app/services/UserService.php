@@ -43,6 +43,11 @@ class UserService implements UserServiceInterface {
             $userInfo = $this->db->single();
         
             if (password_verify($password, $userInfo->password)) {
+
+                $_SESSION['username'] = $userInfo->username;
+                $_SESSION['id_user'] = $userInfo->id_user;
+                $_SESSION['email'] = $userInfo->email;   
+
                 if ($userInfo->role == 'author') {
                     header('Location: http://localhost/Wiki/Wikis/display');
                     exit(); // Add exit after header to ensure no further code execution
@@ -60,6 +65,15 @@ class UserService implements UserServiceInterface {
             exit(); // Add exit after header to ensure no further code execution
         }
     }
+
+
+    public function logout(){
+        session_destroy();
+        // $bye = "See You Soon!";
+        // $data = ['signOut' => $bye];
+        // $this->view('pages/index', $data);
+        header('Location:'. URLROOT .'/pages/index');
+      }
     
 
     public function fetch($idUser){
@@ -71,5 +85,6 @@ class UserService implements UserServiceInterface {
         $this->db->execute();
 
     }
+
 
 }

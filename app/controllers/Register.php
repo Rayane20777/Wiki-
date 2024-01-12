@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 class Register extends Controller
 {
     private $service;
@@ -35,6 +37,9 @@ public function login(){
     $logUser = $this->model("User");
     $logUser->setEmail($_POST['email']);
     $logUser->setPassword($_POST['password']);
+
+
+
     $this->service->fetchByEmail($logUser);
 
  }else{
