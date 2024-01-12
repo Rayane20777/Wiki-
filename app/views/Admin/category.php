@@ -50,7 +50,7 @@
         </div>
 
         <?php if(isset($data['edit'])){ ?>
-            <div id="overlayCategoryEdit" class="fixed  inset-0 top-0 left-0 bg-black w-full h-full bg-opacity-30 backdrop-blur-sm  z-50 flex items-center justify-center">
+            <div id="overlayCategory" class="fixed  inset-0 top-0 left-0 bg-black w-full h-full bg-opacity-30 backdrop-blur-sm  z-50 flex items-center justify-center">
 
                 <form action="<?= URLROOT . 'Categories/edit' ?>" method="POST" id="formCategory" class="w-[550px] bg-white p-5 rounded-lg relative">
                     <div>
@@ -73,10 +73,10 @@
                     </div>
 
                     <div class="absolute top-[10px] right-[20px] cursor-pointer" id="btnClose">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-secondary">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-secondary">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </div>
                 </form>
             </div>
         <?php } ?>
