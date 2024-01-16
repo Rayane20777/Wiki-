@@ -47,12 +47,15 @@ class UserService implements UserServiceInterface {
                 $_SESSION['username'] = $userInfo->username;
                 $_SESSION['id_user'] = $userInfo->id_user;
                 $_SESSION['email'] = $userInfo->email;   
+                $_SESSION['role'] = $userInfo->role;   
+                $_SESSION['loggedIn'] = true;   
+
 
                 if ($userInfo->role == 'author') {
                     header('Location: http://localhost/Wiki/Wikis/display');
                     exit(); // Add exit after header to ensure no further code execution
                 } else {
-                    header('Location: http://localhost/Wiki/Wikis/display');
+                    header('Location: http://localhost/Wiki/categories/display');
                     exit(); // Add exit after header to ensure no further code execution
                 }
             } else {
@@ -72,7 +75,7 @@ class UserService implements UserServiceInterface {
         // $bye = "See You Soon!";
         // $data = ['signOut' => $bye];
         // $this->view('pages/index', $data);
-        header('Location:'. URLROOT .'/pages/index');
+        header('Location:'. URLROOT .'/pages/dashboard');
       }
     
 

@@ -1,15 +1,19 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
+
 <body>
-<nav class="border-gray-200 px-2 mb-10">
+    <!-- This is an example component -->
+    <div class="mx-auto mt-5">
+
+        <nav class="border-gray-200 px-2 mb-10">
             <div class="container mx-auto flex flex-wrap items-center justify-between">
                 <a href="#" class="flex">
                     <img class="h-10 mr-3" width="51" height="80" viewBox="0 0 51 70" fill="none"
@@ -66,42 +70,44 @@
                 </div>
             </div>
         </nav>
-  <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
-    <div class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-  </div>
 
-  <form action="http://localhost/Wiki/Register/login" method="POST" class="mx-auto mt-16 max-w-xl sm:mt-20">
-    <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-      <div class="sm:col-span-2">
-        <label for="email" class="block text-sm font-semibold leading-6 text-black">Email</label>
-        <div class="mt-2.5">
-          <input type="email" name="email" id="email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset shadow-blue-500 ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6">
-          <p class="text-red-400 font-semibold"><?php if(!empty($data["usernameError"])){
-          echo $data["emailError"];
-          } ?></p>
-        </div>
-      </div>
-      <div class="sm:col-span-2">
-        <label for="password" class="block text-sm font-semibold leading-6 text-black">Password</label>
-        <div class="mt-2.5">
-          <input type="password" name="password" id="password" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset shadow-blue-500 ring-blue-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6">
-          <p class="text-red-400 font-semibold"><?php if(!empty($data["usernameError"])){
-          echo $data["passwordError"];
-          } ?></p>
-        </div>
-      </div>
-      <!-- Repeat the above block as needed for additional fields -->
     </div>
-    
-    <div class="mt-10">
-      <button type="submit" class="block w-full rounded-md bg-cyan-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
-      <?php if(!empty($data["error"])){
-                        echo $data["error"];
-                      } ?>
-                  </p>
+
+    <div class="container my-12 mx-auto px-4 md:px-12">
+    <div class="flex flex-wrap -mx-1 lg:-mx-4">
+
+        <!-- Container for demo purpose -->
+        <div class="container my-24 mx-auto md:px-6">
+            <!-- Section: Design Block -->
+            <section class="mb-32">
+                <img src="https://picsum.photos/600/400/?random"
+                    class="mb-6 w-1/2 rounded-lg shadow-lg dark:shadow-black/20" alt="image" />
+
+                <div class="mb-6 flex items-center">
+                    <img src="https://picsum.photos/600/400/?random" class="mr-2 h-8 rounded-full" alt="avatar"
+                        loading="lazy" />
+                    <div>
+                        <span> Published <u><?= $data['wiki']->date_modified ?></u> by </span>
+                        <a href="#!" class="font-medium"><?= $data['wiki']->author ?></a>
+                    </div>
+                </div>
+
+                <h1 class="mb-6 text-3xl font-bold">
+                   <?= $data['wiki']->title ?>
+                </h1>
+
+                <p>
+                <?= $data['wiki']->content ?>
+                </p>
+            </section>
+            <!-- Section: Design Block -->
+        </div>
+
     </div>
-  </form>
-  <?php require APPROOT. '/views/inc/scripts.php'?>
+
+</div>
+
 
 </body>
+
 </html>

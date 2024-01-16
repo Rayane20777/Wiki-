@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+if(($_SESSION['role']) != 'admin') {
+    header('Location: http://localhost/Wiki/Pages/dashboard');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

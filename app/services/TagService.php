@@ -72,5 +72,19 @@ class TagService implements TagServiceInterface {
 
     }
 
+    public function getTagsOFWiki($id) {
+
+        $sql = "SELECT t.name FROM tag t JOIN tagofwiki tw ON t.id_tag = tw.id_tag JOIN wiki w ON tw.id_wiki = w.id_wiki WHERE w.id_wiki = :id";
+        try {
+            $this->db->query($sql);
+            $this->db->bind(':id', $id);
+            $tags = $this->db->resultSet();
+            return $tags;
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+
+    }
+
     
 }

@@ -1,4 +1,8 @@
 <?php
+session_start();
+
+
+
 class Wikis extends Controller {
     private $wikiService;
     private $categoryService;
@@ -17,9 +21,18 @@ class Wikis extends Controller {
 
         $data = [
             'categories' => $this->categoryService->getAllCategories(),
-            'wikis' => $this->wikiService->getAllWikis(),
             'tags' => $this->tagService->getAllTags()
         ];
+
+        if($_SESSION == 'author'){
+            $data = [
+                'wikis' => $this->wikiService->getWikiByUser($_SESSION['id_user'])
+            ];
+        } else {
+            $data = [
+                'wikis' => $this->wikiService->getAllWikis()
+            ];
+        }
 
         $this->view('Author/wiki', $data);
     
@@ -40,7 +53,7 @@ class Wikis extends Controller {
             $newWiki->setTitle($_POST['title']);
             $newWiki->setContent($_POST['content']);
             $newWiki->setId_category($_POST['id_category']);
-            $newWiki->setId_user($_POST['id_user']); 
+            $newWiki->setId_user($_SESSION['id_user']); 
             $newWiki->setDate_create(date('Y-m-d H:i:s')); 
             $newWiki->setDate_modified(date('Y-m-d H:i:s')); 
 
@@ -73,6 +86,19 @@ class Wikis extends Controller {
     
     }
 
+    public function archive($id) {
+
+        $data = $this->wikiService->archive($id);
+        header("Location: http://localhost/Wiki/Wikis/display");
+    
+    }
+
+    public function restore($id){
+        $data = $this->wikiService->restore($id);
+        header("Location: http://localhost/Wiki/Wikis/display");
+
+    }
+
 
 
     public function edit(){
@@ -90,6 +116,15 @@ class Wikis extends Controller {
             $newWiki->setId_category($_POST['id_category']);
             $newWiki->setId_user($_POST['id_user']);
             $this->wikiService->edit($newWiki);
+
+            // $tagOfWiki = $this->model("TagsOfWiki");
+            // $tagOfWiki->setWiki_id($newWiki->getId_wiki());
+            // foreach($_POST['tags'] as $tag):
+            //     $tagOfWiki->setTag_id($tag);
+            //     $this->tagOfWikiService->edit($tagOfWiki);
+            // endforeach;
+
+
             header("Location: http://localhost/Wiki/Wikis/display");
     
         }
@@ -98,11 +133,13 @@ class Wikis extends Controller {
 
     public function get($id) {
 
+        $selectedTags = $this->tagOfWikiService->getByWiki($id);
+
         $data = [
             'Wiki' => $this->wikiService->fetch($id),
             'edit' => 1,
             'categories' => $this->categoryService->getAllCategories(),
-            'selectedTags' => $this->tagOfWikiService->getByWiki($id),
+            'selectedTags' => $selectedTags == null ? [] : $selectedTags,
             'tags' => $this->tagService->getAllTags()
         ];
         $this->view('Author/wiki', $data);

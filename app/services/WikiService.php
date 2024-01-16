@@ -33,7 +33,10 @@ class WikiService {
 
     public function getAllWikis() {
 
-        $sql = "SELECT * FROM wiki";
+        $sql = "SELECT wiki.*, user.full_name AS user_name
+        FROM wiki
+        LEFT JOIN user ON wiki.id_user = user.id_user
+        ORDER BY wiki.date_modified";
         try {
             $this->db->query($sql);
             $Wikis = $this->db->resultSet();
@@ -76,6 +79,25 @@ class WikiService {
 
     }
 
+    public function archive($id){
+
+        $sql = "UPDATE wiki SET archived = '1' WHERE id_wiki = :id_wiki";
+        $this->db->query($sql);
+        $this->db->bind(":id_wiki", $id);
+        $this->db->execute();
+
+        
+
+    }
+
+    public function restore($id){
+        $sql = "UPDATE wiki SET archived = '0' WHERE id_wiki = :id_wiki";
+        $this->db->query($sql);
+        $this->db->bind(":id_wiki", $id);
+        $this->db->execute();
+
+    }
+
     public function fetch($id) {
 
         $sql = "SELECT * FROM wiki WHERE id_wiki = :id";
@@ -83,6 +105,34 @@ class WikiService {
             $this->db->query($sql);
             $this->db->bind(':id', $id);
             $tags = $this->db->single();
+            return $tags;
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+
+    }
+
+    public function getWiki($id) {
+
+        $sql = "SELECT *, c.name AS category_name , u.full_name AS author FROM wiki w JOIN category c ON w.id_category = c.id_category JOIN user u ON w.id_user = u.id_user WHERE id_wiki = :id";
+        try {
+            $this->db->query($sql);
+            $this->db->bind(':id', $id);
+            $tags = $this->db->single();
+            return $tags;
+        } catch (PDOException $e) {
+            print_r($e->getMessage());
+        }
+
+    }
+
+    public function getWikiByUser($id) {
+
+        $sql = "SELECT w.* FROM wiki w JOIN category c ON w.id_category = c.id_category JOIN user u ON w.id_user = u.id_user WHERE u.id_user = :id";
+        try {
+            $this->db->query($sql);
+            $this->db->bind(':id', $id);
+            $tags = $this->db->resultSet();
             return $tags;
         } catch (PDOException $e) {
             print_r($e->getMessage());

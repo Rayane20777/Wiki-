@@ -1,5 +1,4 @@
 // Import Function
-import {inputEmpty , displayMessage} from "./config.js";
 
 const openBtn = document.getElementById('btnAdd');
 const closeBtn = document.getElementById('btnClose');

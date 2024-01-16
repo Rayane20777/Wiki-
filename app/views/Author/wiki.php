@@ -1,8 +1,9 @@
 <?php
-
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
+if($_SESSION['loggedIn'] != 'true' ) {
+    header('Location: http://localhost/Wiki/Pages/dashboard');
 }
+
+var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,9 +58,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                             <option value="<?= $category->id_category ?>">
                                 <?= $category->name ?>
                             </option>
+                            <?php endforeach; ?>
+
                         </select>
 
-                    <?php endforeach; ?>
                 </div>
 
                 <div class="py-3">
@@ -133,28 +135,43 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                     placeholder="Enter content" name="content">
             </div>
 
+            <div class="py-3">
+                    <label for="error" class="block mb-2 text-md font-medium text-secondary">Name Category</label>
+                    <select name="id_category" class="w-full">
+                        <option value="" disabled selected>Select a category</option>
+                        <?php foreach ($data['categories'] as $category): ?>
+                            <option value="<?= $category->id_category ?>">
+                                <?= $category->name ?>
+                            </option>
+                            <?php endforeach; ?>
+
+                        </select>
+
+                </div>
+
             <div class="col-span-6 sm:col-span-3">
                 <label for="tagsEdit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
                 <select id="tagsEdit" name="tags[]"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     multiple>
+                    
                     <?php foreach ($data['tags'] as $tag): ?>
                         <!-- Check if the tag is selected for the current wiki -->
-                        <?php $isSelected = in_array($tag->id_tag, array_column($data['selectedTags'], 'id_tag')); ?>
-                        <option value="<?= $tag->id_tag ?>" <?= $isSelected ? 'selected' : '' ?>>
-                            <?= $tag->name ?>
-                        </option>
+                        <?php if (in_array($tag->id_tag, array_column($data['selectedTags'], 'id_tag') ) ) { ?>
+                            <option value="<?= $tag->id_tag ?>"  selected > 
+                                <?= $tag->name ?>
+                            </option>
+                        <?php } else {   ?>
+                            <option value="<?= $tag->id_tag ?>" > 
+                                <?= $tag->name ?>
+                            </option>
+                            <?php }   ?>
                     <?php endforeach; ?>
                 </select>
                 <span class="error-message text-xs text-red-500"></span>
             </div>
 
-            <div class="py-3">
-                <label for="error" class="block mb-2 text-md font-medium text-secondary">Category ID</label>
-                <input value="<?= $data['Wiki']->id_category ?>" type="text" id="category_id"
-                    class=" bg-white border text-sm rounded-lg focus:ring-red-500  focus:border-red-500 block w-full p-2.5 "
-                    placeholder="Enter Category ID" name="id_category">
-            </div>
+            
 
             <div class="flex gap-5 items-center justify-center">
                 <button id="updateCategory" type="submit"
@@ -163,16 +180,17 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                             focus:outline-none transition duration-150 ease-in-out">
                     Update Category
                 </button>
-                <div class="absolute top-[10px] right-[20px] cursor-pointer" id="btnClose">
+            </div>
+                <a href="<?= URLROOT . '/Wikis/display' ?>" class="absolute top-[10px] right-[20px] cursor-pointer" id="btnClose">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5 h-5 text-secondary">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
-                </div>
+                </a>
+                </form>
+
             </div>
 
-        </form>
-    </div>
 <?php } ?>
 
         <div class="flex-grow bg-white ">
@@ -219,11 +237,23 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
                                 <td class="w-1/3 text-left py-3 px-4">
                                     <?= $wikis->id_category ?>
                                 </td>
-                                <td class="w-1/3 text-left py-3 px-4"><button type="button"><a
-                                            href="<?= URLROOT . 'wikis/delete/' . $wikis->id_wiki ?>">Delete</a></button><button
-                                        type="button"><a
-                                            href="<?= URLROOT . 'wikis/get/' . $wikis->id_wiki ?>">Edit</a></button>
-                                </td>
+                                <?php if($_SESSION['role'] == 'author'){ ?>
+                                    <td class="w-1/3 text-left py-3 px-4"><button type="button"><a
+                                                href="<?= URLROOT . 'wikis/delete/' . $wikis->id_wiki ?>">Delete</a></button><button
+                                            type="button"><a
+                                                href="<?= URLROOT . 'wikis/get/' . $wikis->id_wiki ?>">Edit</a></button>
+                                    </td>
+                                <?php } else if($_SESSION['role'] == 'admin') { ?>
+                                    <?php if($wikis->archived == 0){ ?>
+                                        <td class="w-1/3 text-left py-3 px-4"><button type="button"><a
+                                                    href="<?= URLROOT . 'wikis/archive/' . $wikis->id_wiki ?>">Archive</a></button>
+                                        </td>
+                                    <?php } else if($wikis->archived == 1) { ?>
+                                        <td class="w-1/3 text-left py-3 px-4"><button type="button"><a
+                                                    href="<?= URLROOT . 'wikis/restore/' . $wikis->id_wiki ?>">Restore</a></button>
+                                        </td>
+                                    <?php } ?>
+                                <?php } ?>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

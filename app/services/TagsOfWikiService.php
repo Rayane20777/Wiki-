@@ -26,4 +26,17 @@ class TagsOfWikiService {
         $this->db->execute();
     }
 
+    // public function edit(TagsOfWiki $tagsOfWikiService){
+    //     $id_tag = $tagsOfWikiService->getTag_id();
+    //     $id_wiki = $tagsOfWikiService->getWiki_id();
+
+    //     $sql = "UPDATE TagOfWiki SET id_tag = :id_tag, id_wiki = :id_wiki WHERE id_wiki = :id_wiki";
+    //     $this->db->query($sql);
+    //     $this->db->bind("id_tag",$id_tag);
+    //     $this->db->bind("id_wiki",$id_wiki);
+    //     $this->db->execute();
+
+
+    // }
+
 }

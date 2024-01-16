@@ -37,15 +37,19 @@ public function login(){
     $logUser = $this->model("User");
     $logUser->setEmail($_POST['email']);
     $logUser->setPassword($_POST['password']);
-
-
-
     $this->service->fetchByEmail($logUser);
+    
 
  }else{
     $this->view('Register/login');
 
  }
+
     
 }
+
+public function logout(){
+    $this->service->logout();
+}
+ 
 }
